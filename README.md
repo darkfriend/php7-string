@@ -1,5 +1,7 @@
 # StringHelper - хелпер для работы со строками 
 
+``composer require darkfriend/php7-string``
+
 * ```StringHelper::htmlspecialchars($val)``` - статичный метод, который делает htmlspecialchars() для строк и массивов
 * ```StringHelper::htmlspecialchars_decode($val)``` - статичный метод, который делает htmlspecialchars_decode() для строк и массивов
 * ```StringHelper::generateString($length, $chars)``` - статичный метод, который возвращает сгенерированную строку нужной длины
