@@ -131,4 +131,56 @@ class StringHelper
 
         return $string;
     }
+
+    /**
+     * Get translit string
+     * @param string $str input string
+     * @param array $params iso key - array and lower key - boolean
+     * @return string
+     */
+    public static function translit(string $str, array $params = []): string
+    {
+        if(!$str) return (string) $str;
+        if(empty($params['iso'])) {
+            $params['iso'] = [
+                "Є"=>"YE","І"=>"I","Ѓ"=>"G","і"=>"i","№"=>"","є"=>"ye","ѓ"=>"g",
+                "А"=>"A","Б"=>"B","В"=>"V","Г"=>"G","Д"=>"D",
+                "Е"=>"E","Ё"=>"YO","Ж"=>"ZH",
+                "З"=>"Z","И"=>"I","Й"=>"J","К"=>"K","Л"=>"L",
+                "М"=>"M","Н"=>"N","О"=>"O","П"=>"P","Р"=>"R",
+                "С"=>"S","Т"=>"T","У"=>"U","Ф"=>"F","Х"=>"X",
+                "Ц"=>"C","Ч"=>"CH","Ш"=>"SH","Щ"=>"SHH","Ъ"=>"'",
+                "Ы"=>"Y","Ь"=>"","Э"=>"E","Ю"=>"YU","Я"=>"YA",
+                "а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
+                "е"=>"e","ё"=>"yo","ж"=>"zh",
+                "з"=>"z","и"=>"i","й"=>"j","к"=>"k","л"=>"l",
+                "м"=>"m","н"=>"n","о"=>"o","п"=>"p","р"=>"r",
+                "с"=>"s","т"=>"t","у"=>"u","ф"=>"f","х"=>"x",
+                "ц"=>"c","ч"=>"ch","ш"=>"sh","щ"=>"shh","ъ"=>"",
+                "ы"=>"y","ь"=>"","э"=>"e","ю"=>"yu","я"=>"ya","«"=>"","»"=>"","—"=>"-"
+            ];
+        }
+        if(!isset($params['lower'])) {
+            $params['lower'] = true;
+        }
+        return $params['lower'] ? \strtolower(\strtr($str, $params['iso'])) : \strtr($str, $params['iso']);
+    }
+
+    /**
+     * Add slashes in string
+     * @param string|string[] $str
+     * @param array $params
+     * @return string|string[]
+     */
+    public static function addSlashes($str, array $params = [])
+    {
+        if(!$str) return $str;
+        if(!isset($params['search'])) {
+            $params['search'] = ["\\", "\"", "'"];
+        }
+        if(!isset($params['replace'])) {
+            $params['replace'] = ["\\\\", '\\"', "\\'"];
+        }
+        return \str_replace($params['search'], $params['replace'], $str);
+    }
 }
